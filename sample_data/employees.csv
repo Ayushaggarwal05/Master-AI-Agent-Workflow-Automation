@@ -1,0 +1,6 @@
+employee_id,name,role,skills,current_workload_hours,max_capacity_hours
+EMP-01,Sarah Connor,Senior Backend Engineer,"Python; FastAPI; PostgreSQL; Docker; Asyncio",28,40
+EMP-02,John Doe,Frontend Developer,"React; TypeScript; CSS; Vite; Tailwind",38,40
+EMP-03,Elena Rostova,Data Engineer,"Python; Pandas; ETL; SQL; Openpyxl; Ranking Logic",15,40
+EMP-04,Alex Chen,Fullstack Engineer,"Python; React; Cloud; APIs; LLM Integration",35,40
+EMP-05,Maya Patel,Content & Marketing Specialist,"Copywriting; SEO; Campaign Strategy; Social Media",12,40

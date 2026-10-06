@@ -1,0 +1,6 @@
+sku,name,category,current_stock,minimum_stock,unit_price
+PROD-001,Wireless Mouse,Electronics,4,15,24.99
+PROD-002,Mechanical Keyboard,Electronics,25,10,79.99
+PROD-003,USB-C Hub,Accessories,2,20,34.50
+PROD-004,Gaming Monitor 27in,Displays,12,5,299.00
+PROD-005,Noise Cancelling Headphones,Audio,1,8,149.99
