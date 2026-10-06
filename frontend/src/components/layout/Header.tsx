@@ -1,14 +1,13 @@
 import React from 'react';
-import { Bot, Activity, Layers, History, AlertCircle, RefreshCw } from 'lucide-react';
+import { Bot, Activity, Layers, AlertCircle, RefreshCw } from 'lucide-react';
 import { HealthResponse } from '@/types';
 
 interface HeaderProps {
-  activeTab: 'workspace' | 'explorer' | 'history';
-  onTabChange: (tab: 'workspace' | 'explorer' | 'history') => void;
+  activeTab: 'workspace' | 'explorer';
+  onTabChange: (tab: 'workspace' | 'explorer') => void;
   health: HealthResponse | null;
   healthLoading: boolean;
   onRefreshHealth: () => void;
-  historyCount: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,7 +16,6 @@ export const Header: React.FC<HeaderProps> = ({
   health,
   healthLoading,
   onRefreshHealth,
-  historyCount,
 }) => {
   return (
     <header className="border-b border-dark-750 bg-dark-900/80 backdrop-blur-md sticky top-0 z-30">
@@ -65,22 +63,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Layers className="h-3.5 w-3.5" />
             <span>Workflows</span>
-          </button>
-          <button
-            onClick={() => onTabChange('history')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors relative ${
-              activeTab === 'history'
-                ? 'bg-brand-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-dark-800'
-            }`}
-          >
-            <History className="h-3.5 w-3.5" />
-            <span>Executions</span>
-            {historyCount > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 bg-brand-400/20 text-brand-300 text-[10px] rounded-full font-mono">
-                {historyCount}
-              </span>
-            )}
           </button>
         </nav>
 

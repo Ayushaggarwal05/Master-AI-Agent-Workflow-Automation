@@ -7,19 +7,17 @@ import { RoutingCard } from '@/components/execution/RoutingCard';
 import { ExecutionTraceView } from '@/components/trace/ExecutionTraceView';
 import { ResultRenderer } from '@/components/results/ResultRenderer';
 import { WorkflowExplorer } from '@/components/workflows/WorkflowExplorer';
-import { ExecutionHistory } from '@/components/history/ExecutionHistory';
 import { getHealth, getWorkflows, runWorkflowExecution } from '@/api';
 import {
   Workflow,
   HealthResponse,
   ExecuteResponse,
-  SessionHistoryItem,
 } from '@/types';
 import { AlertCircle } from 'lucide-react';
 import { Toast, ToastProps } from '@/components/common/Toast';
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'workspace' | 'explorer' | 'history'>('workspace');
+  const [activeTab, setActiveTab] = useState<'workspace' | 'explorer'>('workspace');
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [workflowsLoading, setWorkflowsLoading] = useState(true);
   const [selectedWorkflowId, setSelectedWorkflowId] = useState<string | null>(null);
@@ -39,8 +37,6 @@ export const App: React.FC = () => {
     workflowName: string;
     missingInputs: string[];
   } | null>(null);
-
-  const [history, setHistory] = useState<SessionHistoryItem[]>([]);
 
   // Load backend health and workflows on startup
   const fetchHealthStatus = async () => {
@@ -88,19 +84,7 @@ export const App: React.FC = () => {
 
       setExecutionResponse(res);
 
-      // Record into local session history
-      const historyItem: SessionHistoryItem = {
-        id: Math.random().toString(36).substring(2, 9),
-        timestamp: new Date(),
-        message: currentMessage,
-        workflowId: res.routing.workflow_id,
-        workflowName: res.workflow?.name || res.routing.workflow_id,
-        success: res.success,
-        durationMs: res.execution.total_duration_ms,
-        response: res,
-      };
 
-      setHistory((prev) => [historyItem, ...prev]);
 
       // Check if execution was halted due to missing required inputs
       if (!res.success && res.error?.code === 'MISSING_INPUT' && res.routing.missing_inputs.length > 0) {
@@ -164,13 +148,6 @@ export const App: React.FC = () => {
     setActiveTab('workspace');
   };
 
-  const handleSelectHistoryItem = (item: SessionHistoryItem) => {
-    setMessage(item.message);
-    setExecutionResponse(item.response);
-    setSelectedWorkflowId(item.workflowId);
-    setActiveTab('workspace');
-  };
-
   return (
     <div className="min-h-screen bg-dark-950 text-slate-100 flex flex-col">
       {/* Global Header */}
@@ -180,7 +157,6 @@ export const App: React.FC = () => {
         health={health}
         healthLoading={healthLoading}
         onRefreshHealth={fetchHealthStatus}
-        historyCount={history.length}
       />
 
       {/* Main Container */}
@@ -274,16 +250,7 @@ export const App: React.FC = () => {
           </main>
         )}
 
-        {/* Execution History Tab */}
-        {activeTab === 'history' && (
-          <main className="flex-1 overflow-y-auto">
-            <ExecutionHistory
-              history={history}
-              onSelectHistoryItem={handleSelectHistoryItem}
-              onClearHistory={() => setHistory([])}
-            />
-          </main>
-        )}
+
       </div>
 
       {/* Floating Interactive Toast Notifications */}
