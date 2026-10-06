@@ -72,23 +72,23 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
   };
 
   return (
-    <div className="bg-dark-850 rounded-xl border border-accent-amber/40 shadow-2xl p-5 space-y-5 animate-fadeIn">
+    <div className="bg-white rounded-2xl border border-amber-300 shadow-xl p-6 space-y-5 animate-fadeIn text-slate-800">
       {/* Header */}
-      <div className="flex items-start justify-between border-b border-dark-750 pb-3">
+      <div className="flex items-start justify-between border-b border-slate-100 pb-3">
         <div className="flex items-center space-x-3">
-          <div className="h-9 w-9 rounded-lg bg-accent-amber/10 border border-accent-amber/30 flex items-center justify-center text-accent-amber">
+          <div className="h-9 w-9 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="text-sm font-bold text-white">
+              <h3 className="text-sm font-bold text-slate-900">
                 Additional Information Required
               </h3>
-              <span className="font-mono text-xs font-semibold bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded border border-brand-500/30">
+              <span className="font-mono text-xs font-semibold bg-orange-50 text-orange-700 px-2 py-0.5 rounded border border-orange-200">
                 {workflowId}
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               <strong>{workflowName}</strong> requires the following parameters to complete execution:
             </p>
           </div>
@@ -97,7 +97,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
         <button
           type="button"
           onClick={onDismiss}
-          className="text-slate-400 hover:text-white p-1 rounded-md hover:bg-dark-800 transition-colors"
+          className="text-slate-400 hover:text-slate-700 p-1 rounded-md hover:bg-slate-100 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
@@ -111,17 +111,17 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
             const isFileField = lower.includes('csv') || lower.includes('file') || lower.includes('catalog') || lower.includes('logs') || lower.includes('data');
 
             return (
-              <div key={idx} className="bg-dark-950 p-3.5 rounded-lg border border-dark-750 space-y-2">
-                <label className="text-xs font-semibold text-slate-200 flex items-center justify-between">
+              <div key={idx} className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                <label className="text-xs font-semibold text-slate-700 flex items-center justify-between">
                   <span>{inp}</span>
-                  <span className="text-[10px] text-accent-amber uppercase font-mono">Required</span>
+                  <span className="text-[10px] text-amber-700 uppercase font-mono font-bold bg-amber-100/70 px-1.5 py-0.5 rounded">Required</span>
                 </label>
 
                 {isFileField ? (
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
-                      <label className="flex items-center space-x-2 px-3 py-1.5 bg-dark-900 hover:bg-dark-800 border border-dark-750 rounded-lg text-xs text-slate-300 hover:text-white cursor-pointer transition-colors">
-                        <Upload className="h-3.5 w-3.5 text-brand-400" />
+                      <label className="flex items-center space-x-2 px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 hover:text-slate-900 cursor-pointer transition-colors shadow-sm">
+                        <Upload className="h-3.5 w-3.5 text-orange-500" />
                         <span>{uploadingField === inp ? 'Uploading...' : 'Upload File (CSV/XLSX)'}</span>
                         <input
                           type="file"
@@ -136,7 +136,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                       </label>
 
                       {/* Quick Sample Selector */}
-                      <span className="text-xs text-slate-500">or</span>
+                      <span className="text-xs text-slate-400">or</span>
                       <button
                         type="button"
                         onClick={() => {
@@ -152,15 +152,15 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                             handleUseSampleFile(inp, 'sample_data/products.csv', 'sample_data/products.csv');
                           }
                         }}
-                        className="text-xs text-brand-400 hover:text-brand-300 underline font-mono"
+                        className="text-xs text-orange-600 hover:text-orange-700 underline font-mono"
                       >
                         Use Sample Dataset
                       </button>
                     </div>
 
                     {uploadedFiles[inp] && (
-                      <div className="flex items-center space-x-2 text-xs text-accent-emerald bg-accent-emerald/10 px-2.5 py-1.5 rounded border border-accent-emerald/20 font-mono">
-                        <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0" />
+                      <div className="flex items-center space-x-2 text-xs text-emerald-800 bg-emerald-50 px-2.5 py-1.5 rounded border border-emerald-200 font-mono">
+                        <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0 text-emerald-600" />
                         <span>Attached: {uploadedFiles[inp]}</span>
                       </div>
                     )}
@@ -170,7 +170,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                     type="number"
                     value={formData.minimum_stock_threshold ?? 10}
                     onChange={(e) => setFormData({ ...formData, minimum_stock_threshold: parseFloat(e.target.value) })}
-                    className="w-full bg-dark-900 text-xs text-slate-100 p-2.5 rounded border border-dark-750 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-500"
                     placeholder="e.g. 10"
                   />
                 ) : lower.includes('dates') || lower.includes('timeline') ? (
@@ -178,7 +178,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                     type="text"
                     value={formData.dates ?? ''}
                     onChange={(e) => setFormData({ ...formData, dates: e.target.value })}
-                    className="w-full bg-dark-900 text-xs text-slate-100 p-2.5 rounded border border-dark-750 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-500"
                     placeholder="e.g. April 15 - May 30, 2026"
                   />
                 ) : lower.includes('goal') || lower.includes('objective') ? (
@@ -186,7 +186,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                     type="text"
                     value={formData.campaign_goal ?? ''}
                     onChange={(e) => setFormData({ ...formData, campaign_goal: e.target.value })}
-                    className="w-full bg-dark-900 text-xs text-slate-100 p-2.5 rounded border border-dark-750 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-500"
                     placeholder="e.g. Boost Q2 sales conversions by 25%"
                   />
                 ) : lower.includes('order') || lower.includes('email') ? (
@@ -194,7 +194,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                     type="text"
                     value={formData.order_id ?? ''}
                     onChange={(e) => setFormData({ ...formData, order_id: e.target.value })}
-                    className="w-full bg-dark-900 text-xs text-slate-100 p-2.5 rounded border border-dark-750 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-500"
                     placeholder="e.g. ORD-9021 or alice@example.com"
                   />
                 ) : (
@@ -202,7 +202,7 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
                     type="text"
                     value={formData[inp] ?? ''}
                     onChange={(e) => setFormData({ ...formData, [inp]: e.target.value })}
-                    className="w-full bg-dark-900 text-xs text-slate-100 p-2.5 rounded border border-dark-750 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-500"
                     placeholder={`Enter ${inp}...`}
                   />
                 )}
@@ -212,18 +212,18 @@ export const MissingInputResolver: React.FC<MissingInputResolverProps> = ({
         </div>
 
         {/* Form Actions */}
-        <div className="flex items-center justify-end space-x-2 pt-2 border-t border-dark-750">
+        <div className="flex items-center justify-end space-x-2 pt-2 border-t border-slate-100">
           <button
             type="button"
             onClick={onDismiss}
-            className="px-3.5 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors"
+            className="px-3.5 py-2 text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="px-5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-accent-amber to-amber-600 hover:from-amber-500 hover:to-amber-400 rounded-lg shadow-md shadow-amber-500/20 transition-all flex items-center space-x-1.5"
+            className="px-5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 rounded-lg shadow-md shadow-orange-500/20 transition-all flex items-center space-x-1.5 cursor-pointer"
           >
             <span>Continue Workflow Execution</span>
             <ArrowRight className="h-3.5 w-3.5" />

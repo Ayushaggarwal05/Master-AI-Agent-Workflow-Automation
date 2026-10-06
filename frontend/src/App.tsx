@@ -149,7 +149,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#f4f6f9] text-slate-900 flex flex-col">
       {/* Global Header */}
       <Header
         activeTab={activeTab}
@@ -176,77 +176,81 @@ export const App: React.FC = () => {
             />
 
             {/* Center Workspace */}
-            <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 max-w-5xl mx-auto">
-              {/* Command Request Panel */}
-              <RequestPanel
-                message={message}
-                onMessageChange={setMessage}
-                inputs={inputs}
-                onInputsChange={setInputs}
-                onExecute={handleRunWorkflow}
-                onClear={handleClear}
-                isLoading={isLoading}
-              />
-
-              {/* Missing Inputs Interactive Resolution Card */}
-              {missingInputsState && (
-                <MissingInputResolver
-                  workflowId={missingInputsState.workflowId}
-                  workflowName={missingInputsState.workflowName}
-                  missingInputs={missingInputsState.missingInputs}
-                  originalMessage={message}
-                  existingInputs={inputs}
-                  onResolveAndExecute={handleResolveMissingInputsAndContinue}
-                  onDismiss={() => setMissingInputsState(null)}
+            <main className="flex-1 overflow-y-auto p-6 md:p-8">
+              <div className="max-w-6xl mx-auto space-y-6">
+                {/* Command Request Panel */}
+                <RequestPanel
+                  message={message}
+                  onMessageChange={setMessage}
+                  inputs={inputs}
+                  onInputsChange={setInputs}
+                  onExecute={handleRunWorkflow}
+                  onClear={handleClear}
+                  isLoading={isLoading}
                 />
-              )}
 
-              {/* Error Banner */}
-              {errorMessage && !missingInputsState && (
-                <div className="bg-accent-rose/10 border border-accent-rose/30 rounded-xl p-4 flex items-start space-x-3 text-accent-rose text-xs">
-                  <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-semibold text-sm">Execution Notification</h4>
-                    <p className="mt-0.5 text-slate-300">{errorMessage}</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Execution Results Section */}
-              {executionResponse && (
-                <div className="space-y-6 animate-fadeIn">
-                  {/* AI Routing Card */}
-                  <RoutingCard
-                    routing={executionResponse.routing}
-                    workflow={executionResponse.workflow}
+                {/* Missing Inputs Interactive Resolution Card */}
+                {missingInputsState && (
+                  <MissingInputResolver
+                    workflowId={missingInputsState.workflowId}
+                    workflowName={missingInputsState.workflowName}
+                    missingInputs={missingInputsState.missingInputs}
+                    originalMessage={message}
+                    existingInputs={inputs}
+                    onResolveAndExecute={handleResolveMissingInputsAndContinue}
+                    onDismiss={() => setMissingInputsState(null)}
                   />
+                )}
 
-                  {/* Execution Trace */}
-                  <ExecutionTraceView execution={executionResponse.execution} />
+                {/* Error Banner */}
+                {errorMessage && !missingInputsState && (
+                  <div className="bg-accent-rose/10 border border-accent-rose/30 rounded-xl p-4 flex items-start space-x-3 text-accent-rose text-xs">
+                    <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-sm">Execution Notification</h4>
+                      <p className="mt-0.5 text-slate-300">{errorMessage}</p>
+                    </div>
+                  </div>
+                )}
 
-                  {/* Final Result Artifacts (if successful) */}
-                  {executionResponse.success && executionResponse.result && (
-                    <ResultRenderer
-                      workflowId={executionResponse.routing.workflow_id}
-                      workflowName={executionResponse.workflow?.name || executionResponse.routing.workflow_id}
-                      expectedOutputSpec={executionResponse.result.expected_output_spec || 'Completed output'}
-                      resultData={executionResponse.result}
+                {/* Execution Results Section */}
+                {executionResponse && (
+                  <div className="space-y-6 animate-fadeIn">
+                    {/* AI Routing Card */}
+                    <RoutingCard
+                      routing={executionResponse.routing}
+                      workflow={executionResponse.workflow}
                     />
-                  )}
-                </div>
-              )}
+
+                    {/* Execution Trace */}
+                    <ExecutionTraceView execution={executionResponse.execution} />
+
+                    {/* Final Result Artifacts (if successful) */}
+                    {executionResponse.success && executionResponse.result && (
+                      <ResultRenderer
+                        workflowId={executionResponse.routing.workflow_id}
+                        workflowName={executionResponse.workflow?.name || executionResponse.routing.workflow_id}
+                        expectedOutputSpec={executionResponse.result.expected_output_spec || 'Completed output'}
+                        resultData={executionResponse.result}
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
             </main>
           </>
         )}
 
         {/* Workflow Registry Explorer Tab */}
         {activeTab === 'explorer' && (
-          <main className="flex-1 overflow-y-auto">
-            <WorkflowExplorer
-              workflows={workflows}
-              loading={workflowsLoading}
-              onSelectAndRun={handleSelectWorkflowFromExplorer}
-            />
+          <main className="flex-1 overflow-y-auto p-6 md:p-8">
+            <div className="max-w-6xl mx-auto">
+              <WorkflowExplorer
+                workflows={workflows}
+                loading={workflowsLoading}
+                onSelectAndRun={handleSelectWorkflowFromExplorer}
+              />
+            </div>
           </main>
         )}
 

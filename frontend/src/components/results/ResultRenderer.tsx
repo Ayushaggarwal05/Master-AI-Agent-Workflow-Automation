@@ -23,15 +23,15 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
   const artifacts = resultData?.artifacts || {};
 
   return (
-    <div className="bg-dark-850 rounded-xl border border-dark-750 shadow-xl overflow-hidden">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden text-slate-800">
       {/* Header */}
-      <div className="px-5 py-3.5 border-b border-dark-750 bg-dark-900/60 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Sparkles className="h-4 w-4 text-accent-emerald" />
-          <h3 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+      <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/40 flex items-center justify-between">
+        <div className="flex items-center space-x-2.5">
+          <Sparkles className="h-4 w-4 text-orange-500" />
+          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
             Execution Result Artifacts
           </h3>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-500/10 text-brand-300 border border-brand-500/20">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-50 text-orange-700 border border-orange-200 font-bold">
             {workflowId}
           </span>
         </div>
@@ -39,10 +39,10 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
         <button
           type="button"
           onClick={() => setViewJson(!viewJson)}
-          className={`flex items-center space-x-1 text-xs px-2.5 py-1 rounded-md border transition-colors ${
+          className={`flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-xl border transition-all ${
             viewJson
-              ? 'bg-brand-600 text-white border-brand-500'
-              : 'bg-dark-950 text-slate-400 border-dark-750 hover:text-slate-200'
+              ? 'bg-orange-600 text-white border-orange-500'
+              : 'bg-white text-slate-600 border-slate-200 hover:text-slate-900 hover:bg-slate-50'
           }`}
         >
           <Code2 className="h-3.5 w-3.5" />
@@ -50,14 +50,14 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
         </button>
       </div>
 
-      <div className="p-5 space-y-4">
+      <div className="p-6 space-y-4">
         {/* Specification Note */}
-        <div className="text-xs text-slate-400 bg-dark-950 p-3 rounded-lg border border-dark-750">
-          <strong className="text-slate-300">Expected Output Specification:</strong> {expectedOutputSpec}
+        <div className="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200">
+          <strong className="text-slate-800">Expected Output Specification:</strong> {expectedOutputSpec}
         </div>
 
         {viewJson ? (
-          <pre className="text-xs font-mono text-brand-300 bg-dark-950 p-4 rounded-lg border border-dark-750 overflow-x-auto max-h-[500px]">
+          <pre className="text-xs font-mono text-slate-800 bg-slate-50 p-4 rounded-lg border border-slate-200 overflow-x-auto max-h-[500px]">
             {JSON.stringify(resultData, null, 2)}
           </pre>
         ) : (
@@ -66,14 +66,14 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {workflowId === 'WF001' && artifacts.restock_report && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                     Restock Summary: {artifacts.restock_report.restock_required_count} Products Need Reorder
                   </h4>
                 </div>
 
-                <div className="overflow-x-auto rounded-lg border border-dark-750">
+                <div className="overflow-x-auto rounded-lg border border-slate-200">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-dark-950 text-slate-400 font-mono border-b border-dark-750">
+                    <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                       <tr>
                         <th className="p-2.5">SKU</th>
                         <th className="p-2.5">Product Name</th>
@@ -83,33 +83,33 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
                         <th className="p-2.5">Suggested Reorder</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-dark-750/70 bg-dark-900/40">
+                    <tbody className="divide-y divide-slate-100 bg-white">
                       {artifacts.restock_report.restock_items?.map((item: any, i: number) => (
-                        <tr key={i} className="hover:bg-dark-800/50">
-                          <td className="p-2.5 font-mono text-brand-400">{item.sku}</td>
-                          <td className="p-2.5 text-slate-200 font-medium">{item.name}</td>
-                          <td className="p-2.5 font-mono text-accent-rose font-bold">{item.current_stock}</td>
-                          <td className="p-2.5 font-mono text-slate-400">{item.minimum_stock}</td>
+                        <tr key={i} className="hover:bg-slate-50/70">
+                          <td className="p-2.5 font-mono font-bold text-orange-700">{item.sku}</td>
+                          <td className="p-2.5 text-slate-800 font-medium">{item.name}</td>
+                          <td className="p-2.5 font-mono text-rose-600 font-bold">{item.current_stock}</td>
+                          <td className="p-2.5 font-mono text-slate-500">{item.minimum_stock}</td>
                           <td className="p-2.5">
-                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-accent-rose/10 text-accent-rose border border-accent-rose/20">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
                               Low Stock
                             </span>
                           </td>
-                          <td className="p-2.5 font-mono font-bold text-accent-emerald">+{item.suggested_reorder_qty} units</td>
+                          <td className="p-2.5 font-mono font-bold text-emerald-700">+{item.suggested_reorder_qty} units</td>
                         </tr>
                       ))}
                       {artifacts.restock_report.adequate_items?.map((item: any, i: number) => (
-                        <tr key={`ok-${i}`} className="hover:bg-dark-800/50 opacity-60">
-                          <td className="p-2.5 font-mono text-slate-400">{item.sku}</td>
-                          <td className="p-2.5 text-slate-300">{item.name}</td>
-                          <td className="p-2.5 font-mono text-slate-300">{item.current_stock}</td>
-                          <td className="p-2.5 font-mono text-slate-500">{item.minimum_stock}</td>
+                        <tr key={`ok-${i}`} className="hover:bg-slate-50/50 opacity-60">
+                          <td className="p-2.5 font-mono text-slate-500">{item.sku}</td>
+                          <td className="p-2.5 text-slate-600">{item.name}</td>
+                          <td className="p-2.5 font-mono text-slate-600">{item.current_stock}</td>
+                          <td className="p-2.5 font-mono text-slate-400">{item.minimum_stock}</td>
                           <td className="p-2.5">
-                            <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-dark-800 text-slate-400 border border-dark-700">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
                               Adequate
                             </span>
                           </td>
-                          <td className="p-2.5 font-mono text-slate-500">—</td>
+                          <td className="p-2.5 font-mono text-slate-400">—</td>
                         </tr>
                       ))}
                     </tbody>
@@ -122,14 +122,14 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {workflowId === 'WF002' && artifacts.price_validation_report && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                     Price Validation: {artifacts.price_validation_report.exception_count} Price Exceptions (&gt;10%)
                   </h4>
                 </div>
 
-                <div className="overflow-x-auto rounded-lg border border-dark-750">
+                <div className="overflow-x-auto rounded-lg border border-slate-200">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-dark-950 text-slate-400 font-mono border-b border-dark-750">
+                    <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
                       <tr>
                         <th className="p-2.5">SKU</th>
                         <th className="p-2.5">Product</th>
@@ -139,23 +139,23 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
                         <th className="p-2.5">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-dark-750/70 bg-dark-900/40">
+                    <tbody className="divide-y divide-slate-100 bg-white">
                       {artifacts.price_validation_report.matched_products?.map((item: any, i: number) => (
-                        <tr key={i} className="hover:bg-dark-800/50">
-                          <td className="p-2.5 font-mono text-brand-400">{item.sku}</td>
-                          <td className="p-2.5 text-slate-200">{item.name}</td>
-                          <td className="p-2.5 font-mono text-slate-300">${item.internal_price.toFixed(2)}</td>
-                          <td className="p-2.5 font-mono text-slate-300">${item.vendor_price.toFixed(2)}</td>
-                          <td className={`p-2.5 font-mono font-bold ${item.is_exception ? 'text-accent-rose' : 'text-accent-emerald'}`}>
+                        <tr key={i} className="hover:bg-slate-50/70">
+                          <td className="p-2.5 font-mono font-bold text-orange-700">{item.sku}</td>
+                          <td className="p-2.5 text-slate-800 font-medium">{item.name}</td>
+                          <td className="p-2.5 font-mono text-slate-600">${item.internal_price.toFixed(2)}</td>
+                          <td className="p-2.5 font-mono text-slate-600">${item.vendor_price.toFixed(2)}</td>
+                          <td className={`p-2.5 font-mono font-bold ${item.is_exception ? 'text-rose-600' : 'text-emerald-700'}`}>
                             {item.difference_pct}%
                           </td>
                           <td className="p-2.5">
                             {item.is_exception ? (
-                              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-accent-rose/10 text-accent-rose border border-accent-rose/20">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
                                 Exception (&gt;10%)
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-accent-emerald/10 text-accent-emerald border border-accent-emerald/20">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                                 Matched
                               </span>
                             )}
@@ -172,24 +172,24 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {workflowId === 'WF003' && artifacts.validation_summary && (
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-dark-950 p-3 rounded-lg border border-accent-emerald/30">
-                    <span className="text-xs text-slate-400">Valid Rows Cleaned:</span>
-                    <p className="text-xl font-mono font-bold text-accent-emerald">{artifacts.validation_summary.valid_count}</p>
+                  <div className="bg-emerald-50/60 p-3 rounded-lg border border-emerald-200">
+                    <span className="text-xs text-slate-600">Valid Rows Cleaned:</span>
+                    <p className="text-xl font-mono font-bold text-emerald-700">{artifacts.validation_summary.valid_count}</p>
                   </div>
-                  <div className="bg-dark-950 p-3 rounded-lg border border-accent-rose/30">
-                    <span className="text-xs text-slate-400">Invalid Rows Detected:</span>
-                    <p className="text-xl font-mono font-bold text-accent-rose">{artifacts.validation_summary.invalid_count}</p>
+                  <div className="bg-rose-50/60 p-3 rounded-lg border border-rose-200">
+                    <span className="text-xs text-slate-600">Invalid Rows Detected:</span>
+                    <p className="text-xl font-mono font-bold text-rose-700">{artifacts.validation_summary.invalid_count}</p>
                   </div>
                 </div>
 
                 {artifacts.validation_summary.invalid_rows?.length > 0 && (
                   <div className="space-y-2">
-                    <span className="text-xs font-semibold text-accent-rose">Invalid Row Exception Details:</span>
+                    <span className="text-xs font-semibold text-rose-700">Invalid Row Exception Details:</span>
                     <div className="space-y-1">
                       {artifacts.validation_summary.invalid_rows.map((inv: any, i: number) => (
-                        <div key={i} className="text-xs bg-dark-950 p-2.5 rounded border border-accent-rose/20 flex justify-between items-center">
-                          <span className="font-mono text-slate-400">Row #{inv.row_index}</span>
-                          <span className="text-accent-rose font-medium">{inv.reason}</span>
+                        <div key={i} className="text-xs bg-rose-50/40 p-2.5 rounded border border-rose-200 flex justify-between items-center">
+                          <span className="font-mono text-slate-600">Row #{inv.row_index}</span>
+                          <span className="text-rose-700 font-medium">{inv.reason}</span>
                         </div>
                       ))}
                     </div>
@@ -200,29 +200,29 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
 
             {/* WF004: Product Description Generator */}
             {workflowId === 'WF004' && artifacts.generated_content && (
-              <div className="space-y-3 bg-dark-950 p-4 rounded-lg border border-dark-750">
-                <div className="border-b border-dark-750 pb-2">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">SEO Title</span>
-                  <p className="text-sm font-semibold text-brand-300 mt-0.5">{artifacts.generated_content.seo_title}</p>
+              <div className="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <div className="border-b border-slate-200 pb-2">
+                  <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">SEO Title</span>
+                  <p className="text-sm font-semibold text-slate-900 mt-0.5">{artifacts.generated_content.seo_title}</p>
                 </div>
 
-                <div className="border-b border-dark-750 pb-2">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Short Description</span>
-                  <p className="text-xs text-slate-200 mt-0.5">{artifacts.generated_content.short_description}</p>
+                <div className="border-b border-slate-200 pb-2">
+                  <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Short Description</span>
+                  <p className="text-xs text-slate-700 mt-0.5">{artifacts.generated_content.short_description}</p>
                 </div>
 
-                <div className="border-b border-dark-750 pb-2">
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Full Product Copy</span>
-                  <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">{artifacts.generated_content.product_description}</p>
+                <div className="border-b border-slate-200 pb-2">
+                  <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Full Product Copy</span>
+                  <p className="text-xs text-slate-800 mt-0.5 leading-relaxed">{artifacts.generated_content.product_description}</p>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Meta Description</span>
-                  <p className="text-xs text-slate-400 font-mono mt-0.5">{artifacts.generated_content.meta_description}</p>
+                  <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Meta Description</span>
+                  <p className="text-xs text-slate-600 font-mono mt-0.5">{artifacts.generated_content.meta_description}</p>
                 </div>
 
                 {artifacts.generated_content.explicitly_missing_attributes?.length > 0 && (
-                  <div className="pt-2 border-t border-dark-750 text-xs text-accent-amber bg-accent-amber/5 p-2 rounded">
+                  <div className="pt-2 border-t border-slate-200 text-xs text-amber-800 bg-amber-50 p-2 rounded">
                     <strong>Missing Attributes Handled:</strong> {artifacts.generated_content.explicitly_missing_attributes.join(', ')} (Explicitly flagged per decision rules).
                   </div>
                 )}
@@ -231,13 +231,13 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
 
             {/* WF005: Order Status & Shipment */}
             {workflowId === 'WF005' && artifacts.order && (
-              <div className="space-y-3 bg-dark-950 p-4 rounded-lg border border-dark-750">
-                <div className="flex items-center justify-between border-b border-dark-750 pb-3">
+              <div className="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <div className="flex items-center space-x-2">
-                    <Truck className="h-4 w-4 text-brand-400" />
-                    <span className="font-mono text-sm font-bold text-white">{artifacts.order.order_id}</span>
+                    <Truck className="h-4 w-4 text-orange-500" />
+                    <span className="font-mono text-sm font-bold text-slate-900">{artifacts.order.order_id}</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                  <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800 border border-orange-300">
                     {artifacts.order.status}
                   </span>
                 </div>
@@ -245,19 +245,19 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div>
                     <span className="text-slate-500 block">Customer</span>
-                    <span className="text-slate-200 font-medium">{artifacts.order.customer_name} ({artifacts.order.customer_email})</span>
+                    <span className="text-slate-800 font-medium">{artifacts.order.customer_name} ({artifacts.order.customer_email})</span>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Carrier & Tracking</span>
-                    <span className="text-slate-200 font-mono">{artifacts.order.shipment_carrier} — {artifacts.order.tracking_number}</span>
+                    <span className="text-slate-800 font-mono">{artifacts.order.shipment_carrier} — {artifacts.order.tracking_number}</span>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Purchased Items</span>
-                    <span className="text-slate-200">{artifacts.order.items}</span>
+                    <span className="text-slate-800">{artifacts.order.items}</span>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Estimated Delivery</span>
-                    <span className="text-accent-emerald font-mono font-medium">{artifacts.order.estimated_delivery}</span>
+                    <span className="text-emerald-700 font-mono font-medium">{artifacts.order.estimated_delivery}</span>
                   </div>
                 </div>
               </div>
@@ -266,25 +266,25 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {/* WF006: Duplicate Product Detection */}
             {workflowId === 'WF006' && artifacts.duplicate_report && (
               <div className="space-y-3">
-                <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                   Duplicate Product Groups ({artifacts.duplicate_report.duplicates_found_count} Pairs Detected)
                 </h4>
 
                 <div className="space-y-2">
                   {artifacts.duplicate_report.duplicate_groups?.map((dup: any, i: number) => (
-                    <div key={i} className="bg-dark-950 p-3 rounded-lg border border-dark-750 space-y-2">
+                    <div key={i} className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-2">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-bold text-accent-amber">{dup.match_type}</span>
-                        <span className="font-mono text-slate-400">Confidence: {Math.round(dup.confidence * 100)}%</span>
+                        <span className="font-bold text-amber-800">{dup.match_type}</span>
+                        <span className="font-mono text-slate-500">Confidence: {Math.round(dup.confidence * 100)}%</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-dark-750/70">
-                        <div className="p-2 rounded bg-dark-900">
-                          <span className="font-mono text-brand-400 text-[11px] block">{dup.product_1.sku}</span>
-                          <span className="text-slate-200">{dup.product_1.name}</span>
+                      <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-200">
+                        <div className="p-2 rounded bg-white border border-slate-200">
+                          <span className="font-mono text-orange-700 text-[11px] block">{dup.product_1.sku}</span>
+                          <span className="text-slate-800">{dup.product_1.name}</span>
                         </div>
-                        <div className="p-2 rounded bg-dark-900">
-                          <span className="font-mono text-brand-400 text-[11px] block">{dup.product_2.sku}</span>
-                          <span className="text-slate-200">{dup.product_2.name}</span>
+                        <div className="p-2 rounded bg-white border border-slate-200">
+                          <span className="font-mono text-orange-700 text-[11px] block">{dup.product_2.sku}</span>
+                          <span className="text-slate-800">{dup.product_2.name}</span>
                         </div>
                       </div>
                     </div>
@@ -295,29 +295,29 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
 
             {/* WF007: Marketing Campaign Brief */}
             {workflowId === 'WF007' && artifacts.campaign_brief && (
-              <div className="space-y-3 bg-dark-950 p-4 rounded-lg border border-dark-750">
-                <div className="border-b border-dark-750 pb-2">
-                  <span className="text-[11px] text-slate-400 uppercase font-semibold">Objective</span>
-                  <p className="text-sm font-semibold text-white mt-0.5">{artifacts.campaign_brief.campaign_objective}</p>
+              <div className="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <div className="border-b border-slate-200 pb-2">
+                  <span className="text-[11px] text-slate-500 uppercase font-semibold">Objective</span>
+                  <p className="text-sm font-semibold text-slate-900 mt-0.5">{artifacts.campaign_brief.campaign_objective}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div>
                     <span className="text-slate-500 block">Target Audience</span>
-                    <span className="text-slate-200">{artifacts.campaign_brief.target_audience}</span>
+                    <span className="text-slate-800">{artifacts.campaign_brief.target_audience}</span>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Timeline</span>
-                    <span className="text-accent-emerald font-mono font-medium">{artifacts.campaign_brief.timeline}</span>
+                    <span className="text-emerald-700 font-mono font-medium">{artifacts.campaign_brief.timeline}</span>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-slate-400 uppercase font-semibold block mb-1.5">Action Checklist</span>
+                  <span className="text-[11px] text-slate-500 uppercase font-semibold block mb-1.5">Action Checklist</span>
                   <div className="space-y-1">
                     {artifacts.campaign_brief.campaign_checklist?.map((chk: string, i: number) => (
-                      <div key={i} className="flex items-center space-x-2 text-xs text-slate-300 bg-dark-900 px-2.5 py-1.5 rounded">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-accent-emerald flex-shrink-0" />
+                      <div key={i} className="flex items-center space-x-2 text-xs text-slate-800 bg-white px-2.5 py-1.5 rounded border border-slate-200">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />
                         <span>{chk}</span>
                       </div>
                     ))}
@@ -329,18 +329,18 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {/* WF008: Keyword Classification */}
             {workflowId === 'WF008' && artifacts.keyword_classification_report && (
               <div className="space-y-3">
-                <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                   Classified Keywords ({artifacts.keyword_classification_report.unique_keywords_analyzed} Analyzed)
                 </h4>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {artifacts.keyword_classification_report.classification_results?.map((kw: any, i: number) => (
-                    <div key={i} className="bg-dark-950 p-3 rounded-lg border border-dark-750 flex items-center justify-between">
+                    <div key={i} className="bg-slate-50 p-3 rounded-lg border border-slate-200 flex items-center justify-between">
                       <div>
-                        <span className="text-xs font-semibold text-slate-200 block">{kw.keyword}</span>
+                        <span className="text-xs font-semibold text-slate-800 block">{kw.keyword}</span>
                         <span className="text-[11px] text-slate-500 font-mono">{kw.recommended_target_page}</span>
                       </div>
-                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
+                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-orange-50 text-orange-700 border border-orange-200">
                         {kw.search_intent}
                       </span>
                     </div>
@@ -351,23 +351,23 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
 
             {/* WF009: Employee Task Assignment */}
             {workflowId === 'WF009' && artifacts.assignment_result && (
-              <div className="space-y-3 bg-dark-950 p-4 rounded-lg border border-dark-750">
-                <div className="flex items-center justify-between border-b border-dark-750 pb-3">
+              <div className="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-accent-purple" />
+                    <Users className="h-4 w-4 text-purple-600" />
                     <div>
                       <span className="text-[10px] text-slate-500 uppercase">Recommended Candidate</span>
-                      <h4 className="text-sm font-bold text-white">
+                      <h4 className="text-sm font-bold text-slate-900">
                         {artifacts.assignment_result.recommended_employee?.name} ({artifacts.assignment_result.recommended_employee?.role})
                       </h4>
                     </div>
                   </div>
-                  <span className="text-base font-mono font-bold text-accent-emerald bg-accent-emerald/10 px-3 py-1 rounded-md border border-accent-emerald/20">
+                  <span className="text-base font-mono font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200">
                     Score: {artifacts.assignment_result.recommended_employee?.score}/100
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-700 leading-relaxed">
                   {artifacts.assignment_result.reasoning}
                 </p>
               </div>
@@ -377,25 +377,25 @@ export const ResultRenderer: React.FC<ResultRendererProps> = ({
             {workflowId === 'WF010' && artifacts.performance_report && (
               <div className="space-y-3">
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-dark-950 p-3 rounded-lg border border-dark-750">
-                    <span className="text-[11px] text-slate-400">Total Executions</span>
-                    <p className="text-lg font-mono font-bold text-white">{artifacts.performance_report.summary_metrics.total_executions}</p>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <span className="text-[11px] text-slate-500">Total Executions</span>
+                    <p className="text-lg font-mono font-bold text-slate-900">{artifacts.performance_report.summary_metrics.total_executions}</p>
                   </div>
-                  <div className="bg-dark-950 p-3 rounded-lg border border-dark-750">
-                    <span className="text-[11px] text-slate-400">Success Rate</span>
-                    <p className="text-lg font-mono font-bold text-accent-emerald">{artifacts.performance_report.summary_metrics.success_rate_pct}%</p>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <span className="text-[11px] text-slate-500">Success Rate</span>
+                    <p className="text-lg font-mono font-bold text-emerald-700">{artifacts.performance_report.summary_metrics.success_rate_pct}%</p>
                   </div>
-                  <div className="bg-dark-950 p-3 rounded-lg border border-dark-750">
-                    <span className="text-[11px] text-slate-400">Avg Duration</span>
-                    <p className="text-lg font-mono font-bold text-brand-400">{artifacts.performance_report.summary_metrics.average_execution_time_sec}s</p>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <span className="text-[11px] text-slate-500">Avg Duration</span>
+                    <p className="text-lg font-mono font-bold text-orange-700">{artifacts.performance_report.summary_metrics.average_execution_time_sec}s</p>
                   </div>
                 </div>
 
                 {artifacts.performance_report.recommendations?.length > 0 && (
-                  <div className="bg-dark-950 p-3 rounded-lg border border-accent-amber/20 text-xs space-y-1.5">
-                    <span className="font-semibold text-accent-amber block">Optimization Recommendations:</span>
+                  <div className="bg-amber-50/80 p-3 rounded-lg border border-amber-200 text-xs space-y-1.5">
+                    <span className="font-semibold text-amber-900 block">Optimization Recommendations:</span>
                     {artifacts.performance_report.recommendations.map((rec: string, i: number) => (
-                      <p key={i} className="text-slate-300">• {rec}</p>
+                      <p key={i} className="text-slate-700">• {rec}</p>
                     ))}
                   </div>
                 )}

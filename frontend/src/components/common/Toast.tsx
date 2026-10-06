@@ -46,9 +46,9 @@ export const Toast: React.FC<ToastProps> = ({
       badge: 'Success',
     },
     info: {
-      bg: 'bg-dark-900/95 border-brand-500/40 shadow-brand-500/10',
-      icon: <Info className="h-5 w-5 text-brand-400 flex-shrink-0" />,
-      titleColor: 'text-brand-400',
+      bg: 'bg-dark-900/95 border-orange-500/40 shadow-orange-500/10',
+      icon: <Info className="h-5 w-5 text-orange-400 flex-shrink-0" />,
+      titleColor: 'text-orange-400',
       badge: 'Info',
     },
   }[type];
